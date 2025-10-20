@@ -91,7 +91,7 @@ class CommunicationManager:
                 assert key not in self._callbacks
                 self._callbacks[key] = callback
         else:
-            frame = frame.as_reversed_frame()
+            #frame = frame.as_reversed_frame()
             assert frame not in self._callbacks
             self._callbacks[frame] = callback
 

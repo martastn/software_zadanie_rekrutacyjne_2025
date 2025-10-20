@@ -12,15 +12,14 @@ class Frame:
     :param destination:  device that the frames is sent to
     :param priority:     level of how important the information is
     :param action:       type of action that the frame represents (e.g.
-                         service or request, see actions module for details)
+                         service or request)
     :param source:       device that the frame is sent from
     :param device_type:  type of the hardware that the action is connected
-                         to (e.g. servo or relay, see devices module for details)
+                         to (e.g. servo or relay)
     :param device_id:    id number of the device, unique within device type
     :param data_type:    type of data that is being sent (e.g. int32 or float)
     :param operation:    id of the operation performed on the device
     :param payload:      actual information sent with the frame
-    :param pattern:      whether frame should be used as a frame matching pattern, not a real Frame
     """
     destination: int = field(metadata={'bits': 5})
     priority: int = field(metadata={'bits': 2}, hash=False, compare=False)

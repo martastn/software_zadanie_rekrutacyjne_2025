@@ -10,23 +10,27 @@ devices:
       closed_pos: 100
       board: "rocket"
       device_id: 1
-
     fuel_main:
+      open_pos: 0
+      closed_pos: 100
+      board: "rocket"
+      device_id: 2
+    oxidizer_main:
       open_pos: 0
       closed_pos: 100
       board: "rocket"
       device_id: 3
 
-    oxidizer_main:
-      open_pos: 0
-      closed_pos: 100
-      board: "rocket"
-      device_id: 4
-
   relay:
+    oxidizer_heater:
+      board: "rocket"
+      device_id: 0
     igniter:
       board: "rocket"
-      device_id: 0 
+      device_id: 1
+    parachute:
+      board: "rocket"
+      device_id: 2
 
   sensor:
     fuel_level:
@@ -38,23 +42,39 @@ devices:
       scale: 1
       a: 1
       b: 0
-
     oxidizer_level:
       board: "rocket"
-      device_id: 0
+      device_id: 1
       data_type: "float"
       recording: off
       units: "%"
       scale: 1
       a: 1
-      b: 0 
-
+      b: 0
     altitude:
       board: "rocket"
-      device_id: 0
+      device_id: 2
       data_type: "float"
       recording: off
       units: "m"
+      scale: 1
+      a: 1
+      b: 0
+    oxidizer_pressure:
+      board: "rocket"
+      device_id: 3
+      data_type: "float"
+      recording: off
+      units: "bar"
+      scale: 1
+      a: 1
+      b: 0
+    angle:
+      board: "rocket"
+      device_id: 4
+      data_type: "float"
+      recording: off
+      units: "degrees"
       scale: 1
       a: 1
       b: 0
