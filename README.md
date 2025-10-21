@@ -15,10 +15,11 @@ Symulator pozwala na wysyłanie poleceń sterujących do rakiety oraz odbierania
 Istnieje wiele podejść do tego zadania, Twój kod nie musi nawet wykonywać z sukcesem lotu rakiety!.
 Jeśli wizualizacja danych jest Twoją mocną stroną to możesz skupić się na stworzeniu aplikacji przedstawiającej stan rakiety w czytelny sposób.
 Preferujesz skupić się na locie? Bez problemu, możesz stworzyć aplikację przede wszystkim skupioną na sterowaniu, zawierającą na przykład blokady przed wykonaniem niepoprawnej operacji w danym momencie startu lub całkowicie automatyzującą start i jedynie wyświetlającą progress wykonywanych operacji.
-A może wolisz sprzerobić którąś z części ```communication_library``` na Rust'a, podpiąć ją do pythona i wykonać resztę lotu prostym skryptem? To również możliwe!
+A może wolisz przerobić którąś z części ```communication_library``` na Rust'a, podpiąć ją do pythona i wykonać resztę lotu prostym skryptem? To również możliwe!
 
 Zadanie pozostawia Ci dowolność w wykonaniu tego co zechcesz, chętnie zobaczymy co zdecydujesz się nam przedstawić :)
 Jeśli zabrakło by Ci czasu na dokończenie zadania to bez obaw, śmiało możecie przysyłać zadania nawet jeśli są work in progress albo nie wszystko działa.
+W przypadku jeśli zastanawiasz się z jakiego UI frameworka skorzystać to polecamy NiceGUI (https://nicegui.io/), z którego również sami korzystamy. Jeśli jednak wolisz użyć czegoś innego to też nie ma problemu.
 
 W razie pytań prosimy kontaktować się na adres mailowy z którego otrzymano informację o przejściu do drugiego etapu, lub zrobić issue w tym repozytorium z pytaniem (szczególnie preferowane jeśli pytanie odnosi się do kodu).
 
