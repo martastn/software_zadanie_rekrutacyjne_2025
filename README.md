@@ -166,6 +166,6 @@ Lot rakiety może się nie powieść, prosimy się jednak nie martwić ponieważ
 
 **Uwagi:**
 - Ciśnienie utleniacza w zakresie 55-65 bar zapewnia optymalny ciąg (100%)
-- Ciśnienie utleniacza w zakresie 40-55 bar lub 65-70 bar zapewnia zmniejszony ciąg (50-100%)
+- Ciśnienie utleniacza w zakresie 40-55 zapewnia zmniejszony ciąg (50-100%)
 - Symulator wyświetla komunikaty o błędach i aktualnym stanie rakiety
 - Argument `--verbose` przy uruchomieniu symulatora pozwala śledzić wszystkie wysyłane i odbierane ramki
