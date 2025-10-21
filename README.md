@@ -88,6 +88,10 @@ Operacje możliwe do wykonania:
 
 Przykłady wywołania tych operacji zostały przedstawione w pliku ```frame_sending_receiving_example.py```
 
+Aby określić z jakiego ID urządzenia musisz skorzystać aby wysłać do niego ramkę, skorzystaj z pliku ```simulator_config.yml``` gdzie wylistowane są wszystkie podzespoły obecne w symulatorze.
+Numery identyfikacyjne są widoczne w polach "device_id".
+Każdy typ urządzenia ma swoją osobną przestrzeń identyfikatorów, co oznacza że identyfikatory urządzeń mogą się pokrywać jeśli dwa urządzenia są różnego typu.
+
 
 #### Protokół komunikacyjny
 
