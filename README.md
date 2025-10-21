@@ -30,7 +30,7 @@ Zadania prosimy wrzucać na publiczne repozytorium i przesłanie nam linku do ni
 
 Aby skorzystać z repozytorium zinstaluj następujące biblioteki:
 ```bash
-pip install crccheck bitstruct
+pip install crccheck bitstruct pyyaml
 ```
 
 Kod symulatora jest zawarty w pliku ```tcp_simulator.py```, po uruchomieniu go z argumentem --help zobaczysz dostępne argumenty startowe.
