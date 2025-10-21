@@ -138,7 +138,7 @@ Lot rakiety może się nie powieść, prosimy się jednak nie martwić ponieważ
 
 5. **Faza lotu**:
    - Rakieta będzie spalać paliwo i nabierać wysokości
-   - Po wypaleniu paliwa rakieta wejdzie w fazę wznoszenia balistycznego
+   - Po wypaleniu paliwa rakieta będzie lecieć jeszcze jakiś czas wytracając prędkość
    - Po osiągnięciu apogeum (najwyższego punktu) rakieta zacznie opadać
 
 6. **Lądowanie**:
