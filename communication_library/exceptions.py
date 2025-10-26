@@ -39,3 +39,9 @@ class UnregisteredCallbackError(CommunicationError):
 
     def __str__(self):
         return f'Unregistered callback for frame: {self.frame}'
+    
+class UnknownCommand(Exception):
+    """Raise when user gives an unknown command in CLI controller"""
+
+class WrongOperationOrderCLI(Exception):
+    """Raise when user gives a instruction in CLI mode, that would lead to the explosion"""
