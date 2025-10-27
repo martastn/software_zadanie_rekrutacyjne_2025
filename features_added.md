@@ -90,4 +90,5 @@ python3 tcp_simulator.py --plot-vt yes
 <img src="images/vt_chart.png" width="500"/>
 
 Przykładowy wykres uzyskany przy uruchomieniu `start_example.py`.
+
 ---
