@@ -1,7 +1,10 @@
+import math
 import random
 import sys
 import time
 import os
+from matplotlib import pyplot as plt
+import numpy as np
 import yaml
 from enum import Enum
 
@@ -12,12 +15,13 @@ from communication_library.exceptions import UnregisteredCallbackError
 from communication_library.exceptions import TransportTimeoutError
 from communication_library.tcp_transport import TcpSettings
 
+
 from argparse import ArgumentParser
 
 import logging
 
 
-class SimulationState(Enum):
+class SimulationState(Enum): # enum przechowujący stany symulacji rakiety
     IDLE = "IDLE"
     FILLING_OXIDIZER = "FILLING_OXIDIZER"
     OXIDIZER_FILLED = "OXIDIZER_FILLED"
@@ -41,16 +45,19 @@ class StandaloneMock:
                  feed_send_interval: float,
                  no_print: bool,
                  verbose: bool,
-                 time_multiplier: float):
+                 time_multiplier: float,
+                 plot_vt: bool):
         
         with open(hardware_config, 'r') as config_file:
             self.config = yaml.safe_load(config_file)
         
         self.manager = CommunicationManager()
         self.manager.change_transport_type(TransportType.TCP)
-        self.manager.connect(TcpSettings(address=proxy_address, port=proxy_port))
+        self.manager.connect(TcpSettings(address=proxy_address, port=proxy_port)) # łączenie z hardware proxy TCP
+
         self.setup_loggers()
         self._logger = logging.getLogger("main")
+        
         self.feed_send_delay = feed_send_interval
         self.no_print = no_print
         self.verbose = verbose
@@ -59,6 +66,7 @@ class StandaloneMock:
         self.last_physics_update = time.perf_counter()
         self.last_status_print = time.perf_counter()
         self.should_run = True
+        self.plot_vt = plot_vt
         
         self.state = SimulationState.IDLE
         
@@ -87,6 +95,13 @@ class StandaloneMock:
         self.max_altitude = 0.0
         self.velocity = 0.0
         self.thrust_multiplier = 1.0
+
+        if self.plot_vt:
+            self.fig, self.ax = plt.subplots()
+            self.ax.set_ylabel("Velocity [m/s]")
+            self.ax.set_xlabel("Time [s]")
+            self.ax.set_title("Rocket velocity / time")
+            self.ax.grid(True)
 
         self._logger.info(
             f'Rocket simulator is running connected to {proxy_address}:{proxy_port}')
@@ -122,6 +137,15 @@ class StandaloneMock:
             self._logger.info(f"    - {relay_name}: {'OPEN' if state else 'CLOSED'}")
         self._logger.info(f"  Velocity: {self.velocity:.2f} m/s")
         self._logger.info("=" * 60)
+
+    def plot_rocket_vt(self):
+
+        self.ax.scatter(self.last_physics_update, self.velocity, color='red', s=10)
+
+        self.ax.legend()
+        self.fig.canvas.draw()
+        plt.pause(0.1)
+        
 
     def explode(self, reason: str):
         self.state = SimulationState.EXPLOSION
@@ -404,6 +428,8 @@ class StandaloneMock:
                     self.state = SimulationState.APOGEE
                     self._logger.info(f'State: {self.state.value} - Maximum altitude: {self.sensors["altitude"]:.2f}m')
                     self.print_rocket_status()
+
+            if self.plot_vt: self.plot_rocket_vt()
         
         elif self.state == SimulationState.APOGEE:
             time_since_apogee = time.perf_counter() - self.apogee_reached_time
@@ -421,6 +447,8 @@ class StandaloneMock:
             else:
                 self.velocity -= 9.81 * dt
                 self.sensors['altitude'] += self.velocity * dt
+
+            if self.plot_vt: self.plot_rocket_vt()
         
         elif self.state == SimulationState.PARACHUTE_DEPLOYED:
             terminal_velocity = -5.0
@@ -440,6 +468,8 @@ class StandaloneMock:
                 self.print_rocket_status()
                 time.sleep(2)
                 self.should_run = False
+
+            if self.plot_vt: self.plot_rocket_vt()
         
         elif self.state == SimulationState.FREEFALL:
             self.velocity -= 9.81 * dt
@@ -464,6 +494,8 @@ class StandaloneMock:
                 self.print_rocket_status()
                 time.sleep(2)
                 self.should_run = False
+
+            if self.plot_vt: self.plot_rocket_vt()
 
     def send_feed_frame(self):
         conf_dict = self.config
@@ -576,6 +608,7 @@ if __name__ == "__main__":
                         help='Print all frames sent/received. If disabled, prints rocket status every second.')
     parser.add_argument('--time-multiplier', default=1.0, type=float,
                         help='Simulation speed multiplier. 1.0 = real-time, 2.0 = 2x faster, 0.5 = 2x slower.')
+    parser.add_argument('--plot-vt', default=False)
     cl_args = parser.parse_args()
     standalone_mock = StandaloneMock(cl_args.proxy_address,
                                      int(cl_args.proxy_port),
@@ -583,5 +616,8 @@ if __name__ == "__main__":
                                      cl_args.feed_interval,
                                      cl_args.no_print,
                                      cl_args.verbose,
-                                     cl_args.time_multiplier)
+                                     cl_args.time_multiplier,
+                                     cl_args.plot_vt)
     standalone_mock.receive_send_loop()
+    if cl_args.plot_vt:
+        plt.show()
